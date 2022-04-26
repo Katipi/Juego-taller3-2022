@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DragNdrop : MonoBehaviour
 {
+    public AudioSource audio;
+    public AudioClip tomarProducto;
+    public AudioClip soltarProducto;
     public SpriteRenderer spriterenderer;
     public bool onDrag;
     Vector3 posicionOriginal;
@@ -11,9 +14,15 @@ public class DragNdrop : MonoBehaviour
     private void Awake()
     {
         spriterenderer.enabled = false;
-        posicionOriginal = transform.position;
+        posicionOriginal = transform.localPosition;
 
     }
+
+    private void OnMouseDown()
+    {
+        audio.PlayOneShot(tomarProducto);
+    }
+
     private void OnMouseDrag()
     {
         spriterenderer.enabled = true;
@@ -40,8 +49,9 @@ public class DragNdrop : MonoBehaviour
             {
                 // apagar el spriterenhderer
                 // devolver a la posicionm inicial
-                transform.position = posicionOriginal;
+                transform.localPosition = posicionOriginal;
                 spriterenderer.enabled = false;
+                audio.PlayOneShot(soltarProducto);
 
             }
 
